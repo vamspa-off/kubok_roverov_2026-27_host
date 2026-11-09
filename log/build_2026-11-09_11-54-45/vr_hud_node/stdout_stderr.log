@@ -1,8 +1,0 @@
-[ 50%] [32mBuilding CXX object CMakeFiles/vr_hud_src.dir/src/vr_hud_node.cpp.o[0m
-[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:7:10:[m[K [01;31m[Kfatal error: [m[Kopencv2/cudaarithm.hpp: No such file or directory
-    7 | #include [01;31m[K<opencv2/cudaarithm.hpp>[m[K
-      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~[m[K
-compilation terminated.
-gmake[2]: *** [CMakeFiles/vr_hud_src.dir/build.make:76: CMakeFiles/vr_hud_src.dir/src/vr_hud_node.cpp.o] Error 1
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/vr_hud_src.dir/all] Error 2
-gmake: *** [Makefile:146: all] Error 2
