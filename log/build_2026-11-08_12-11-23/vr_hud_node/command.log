@@ -1,0 +1,2 @@
+Invoking command in '/home/user/ros2_ws/build/vr_hud_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8
+Invoked command in '/home/user/ros2_ws/build/vr_hud_node' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8

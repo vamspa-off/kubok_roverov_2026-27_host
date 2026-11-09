@@ -1,0 +1,13 @@
+[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:[m[K In constructor ‘[01m[KVrHudNode::[01;32m[KVrHudNode[m[K()[m[K’:
+[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:18:76:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+   18 |             std::bind(&VrHudNode::image_callback, this, std::placeholders::[01;31m[K1[m[K));
+      |                                                                            [01;31m[K^[m[K
+[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:23:76:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+   23 |             std::bind(&VrHudNode::speed_callback, this, std::placeholders::[01;31m[K1[m[K));
+      |                                                                            [01;31m[K^[m[K
+[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:27:75:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+   27 |             std::bind(&VrHudNode::gear_callback, this, std::placeholders::[01;31m[K1[m[K));
+      |                                                                           [01;31m[K^[m[K
+gmake[2]: *** [CMakeFiles/vr_hud_src.dir/build.make:76: CMakeFiles/vr_hud_src.dir/src/vr_hud_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/vr_hud_src.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

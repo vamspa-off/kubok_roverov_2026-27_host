@@ -1,0 +1,40 @@
+[0.015s] Invoking command in '/home/user/ros2_ws/build/vr_hud_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8
+[0.059s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.390s] -- Found rclcpp: 28.1.22 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.447s] -- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.464s] -- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.488s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.514s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.636s] -- Found rmw_implementation_cmake: 7.3.4 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.641s] -- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.752s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.885s] -- Found sensor_msgs: 5.3.8 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[0.993s] -- Found cv_bridge: 4.1.0 (/opt/ros/jazzy/share/cv_bridge/cmake)
+[1.026s] -- Checking for module 'openxr'
+[1.048s] --   Found openxr, version 1.0
+[1.240s] -- Configuring done (1.2s)
+[1.266s] -- Generating done (0.0s)
+[1.272s] -- Build files have been written to: /home/user/ros2_ws/build/vr_hud_node
+[1.340s] [ 50%] [32mBuilding CXX object CMakeFiles/vr_hud_src.dir/src/vr_hud_node.cpp.o[0m
+[5.427s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:[m[K In function ‘[01m[Kint[01;32m[K main[m[K(int, char**)[m[K’:
+[5.427s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:82:24:[m[K [01;31m[Kerror: [m[K‘[01m[KXrInstanceCreateInfo[m[K’ {aka ‘[01m[Kstruct XrInstanceCreateInfo[m[K’} has no member named ‘[01m[KinstanceName[m[K’
+[5.428s]    82 |     strncpy(instanceCI.[01;31m[KinstanceName[m[K, "Ros2VrHud", XR_MAX_INSTANCE_NAME_SIZE);
+[5.428s]       |                        [01;31m[K^~~~~~~~~~~~[m[K
+[5.488s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:82:51:[m[K [01;31m[Kerror: [m[K‘[01m[KXR_MAX_INSTANCE_NAME_SIZE[m[K’ was not declared in this scope; did you mean ‘[01m[KXR_MAX_ENGINE_NAME_SIZE[m[K’?
+[5.488s]    82 |     strncpy(instanceCI.instanceName, "Ros2VrHud", [01;31m[KXR_MAX_INSTANCE_NAME_SIZE[m[K);
+[5.488s]       |                                                   [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.489s]       |                                                   [32m[KXR_MAX_ENGINE_NAME_SIZE[m[K
+[5.489s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:83:16:[m[K [01;31m[Kerror: [m[K‘[01m[KXrInstanceCreateInfo[m[K’ {aka ‘[01m[Kstruct XrInstanceCreateInfo[m[K’} has no member named ‘[01m[KapplicationVersion[m[K’; did you mean ‘[01m[KapplicationInfo[m[K’?
+[5.489s]    83 |     instanceCI.[01;31m[KapplicationVersion[m[K = 1;
+[5.489s]       |                [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+[5.489s]       |                [32m[KapplicationInfo[m[K
+[5.489s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:84:16:[m[K [01;31m[Kerror: [m[K‘[01m[KXrInstanceCreateInfo[m[K’ {aka ‘[01m[Kstruct XrInstanceCreateInfo[m[K’} has no member named ‘[01m[KengineVersion[m[K’
+[5.490s]    84 |     instanceCI.[01;31m[KengineVersion[m[K = 1;
+[5.490s]       |                [01;31m[K^~~~~~~~~~~~~[m[K
+[5.490s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:85:24:[m[K [01;31m[Kerror: [m[K‘[01m[KXrInstanceCreateInfo[m[K’ {aka ‘[01m[Kstruct XrInstanceCreateInfo[m[K’} has no member named ‘[01m[KengineName[m[K’
+[5.490s]    85 |     strncpy(instanceCI.[01;31m[KengineName[m[K, "NoEngine", XR_MAX_ENGINE_NAME_SIZE);
+[5.490s]       |                        [01;31m[K^~~~~~~~~~[m[K
+[10.478s] gmake[2]: *** [CMakeFiles/vr_hud_src.dir/build.make:76: CMakeFiles/vr_hud_src.dir/src/vr_hud_node.cpp.o] Error 1
+[10.479s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/vr_hud_src.dir/all] Error 2
+[10.479s] gmake: *** [Makefile:146: all] Error 2
+[10.482s] Invoked command in '/home/user/ros2_ws/build/vr_hud_node' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8

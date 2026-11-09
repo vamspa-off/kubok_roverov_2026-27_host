@@ -1,0 +1,263 @@
+[0.000000] (-) TimerEvent: {}
+[0.000296] (vr_hud_node) JobQueued: {'identifier': 'vr_hud_node', 'dependencies': OrderedDict()}
+[0.000961] (vr_hud_node) JobStarted: {'identifier': 'vr_hud_node'}
+[0.014971] (vr_hud_node) JobProgress: {'identifier': 'vr_hud_node', 'progress': 'cmake'}
+[0.016089] (vr_hud_node) JobProgress: {'identifier': 'vr_hud_node', 'progress': 'build'}
+[0.016898] (vr_hud_node) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/user/ros2_ws/build/vr_hud_node', '--', '-j8', '-l8'], 'cwd': '/home/user/ros2_ws/build/vr_hud_node', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'QT_SCALE_FACTOR': '1', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'LANGUAGE': 'en', 'USER': 'user', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'XDG_SEAT': 'seat0', 'SSH_AGENT_PID': '2027', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/user', 'CHROME_DESKTOP': 'com.microsoft.VSCode.desktop', 'OLDPWD': '/home/user/ros2_ws', 'TERM_PROGRAM_VERSION': '1.145.2', 'DESKTOP_SESSION': 'xfce', 'PANEL_GDK_CORE_DEVICE_EVENTS': '0', 'ROS_PYTHON_VERSION': '3', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GDK_SCALE': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/user/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'GDK_DPI_SCALE': '1', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'user', 'QT_AUTO_SCREEN_SCALE_FACTOR': '0', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': 'c2', 'FC_FONTATIONS': '1', 'PATH': '/home/user/.local/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/home/user/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/bubuntu:@/tmp/.ICE-unix/1857,unix/bubuntu:/tmp/.ICE-unix/1857', 'FASTRTPS_DEFAULT_PROFILES_FILE': '/home/user/fastdds_config.xml', 'GDM_LANG': 'en', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_MENU_PREFIX': 'xfce-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0.0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'XFCE', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'xfce', 'XAUTHORITY': '/home/user/.Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-e2b76fa2dd.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/tmp/ssh-KxReJp9uLY6p/agent.2024', 'ROS_DOMAIN_ID': '1', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/user', 'AMENT_PREFIX_PATH': '/home/user/ros2_ws/install/vr_hud_node:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'xfce', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '7', 'PWD': '/home/user/ros2_ws/build/vr_hud_node', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-xfce:/etc/xdg', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share', 'PYTHONPATH': '/opt/ros/jazzy/opt/gz_sim_vendor/lib/python:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_transport_vendor/lib/python:/opt/ros/jazzy/opt/gz_msgs_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/user/ros2_ws/install/vr_hud_node:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.099700] (-) TimerEvent: {}
+[0.107076] (vr_hud_node) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/vr_hud_src.dir/src/vr_hud_node.cpp.o\x1b[0m\n'}
+[0.199852] (-) TimerEvent: {}
+[0.300239] (-) TimerEvent: {}
+[0.400568] (-) TimerEvent: {}
+[0.500907] (-) TimerEvent: {}
+[0.601262] (-) TimerEvent: {}
+[0.701540] (-) TimerEvent: {}
+[0.801818] (-) TimerEvent: {}
+[0.902153] (-) TimerEvent: {}
+[0.995507] (vr_hud_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:171:53:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kmulti-character character constant [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmultichar\x07-Wmultichar\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[0.996293] (vr_hud_node) StderrLine: {'line': b"  171 |         else if (key == 'a' || key == 'A' || key == \x1b[01;35m\x1b[K'\xd0\xb0'\x1b[m\x1b[K || key == '\xd0\x90') {\n"}
+[0.996495] (vr_hud_node) StderrLine: {'line': b'      |                                                     \x1b[01;35m\x1b[K^~~\x1b[m\x1b[K\n'}
+[0.996619] (vr_hud_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:171:67:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kmulti-character character constant [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmultichar\x07-Wmultichar\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[0.996732] (vr_hud_node) StderrLine: {'line': b"  171 |         else if (key == 'a' || key == 'A' || key == '\xd0\xb0' || key == \x1b[01;35m\x1b[K'\xd0\x90'\x1b[m\x1b[K) {\n"}
+[0.996836] (vr_hud_node) StderrLine: {'line': b'      |                                                                   \x1b[01;35m\x1b[K^~~\x1b[m\x1b[K\n'}
+[0.996957] (vr_hud_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:174:55:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kmulti-character character constant [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmultichar\x07-Wmultichar\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[0.997116] (vr_hud_node) StderrLine: {'line': b"  174 |         } else if (key == 'd' || key == 'D' || key == \x1b[01;35m\x1b[K'\xd0\xb2'\x1b[m\x1b[K || key == '\xd0\x92') {\n"}
+[0.997302] (vr_hud_node) StderrLine: {'line': b'      |                                                       \x1b[01;35m\x1b[K^~~\x1b[m\x1b[K\n'}
+[0.997509] (vr_hud_node) StderrLine: {'line': b'\x1b[01m\x1b[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:174:69:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kmulti-character character constant [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmultichar\x07-Wmultichar\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[0.997738] (vr_hud_node) StderrLine: {'line': b"  174 |         } else if (key == 'd' || key == 'D' || key == '\xd0\xb2' || key == \x1b[01;35m\x1b[K'\xd0\x92'\x1b[m\x1b[K) {\n"}
+[0.997955] (vr_hud_node) StderrLine: {'line': b'      |                                                                     \x1b[01;35m\x1b[K^~~\x1b[m\x1b[K\n'}
+[1.002282] (-) TimerEvent: {}
+[1.102599] (-) TimerEvent: {}
+[1.202982] (-) TimerEvent: {}
+[1.303222] (-) TimerEvent: {}
+[1.403595] (-) TimerEvent: {}
+[1.503925] (-) TimerEvent: {}
+[1.604286] (-) TimerEvent: {}
+[1.704672] (-) TimerEvent: {}
+[1.805072] (-) TimerEvent: {}
+[1.905639] (-) TimerEvent: {}
+[2.006391] (-) TimerEvent: {}
+[2.106714] (-) TimerEvent: {}
+[2.207108] (-) TimerEvent: {}
+[2.307550] (-) TimerEvent: {}
+[2.407932] (-) TimerEvent: {}
+[2.508231] (-) TimerEvent: {}
+[2.608499] (-) TimerEvent: {}
+[2.708792] (-) TimerEvent: {}
+[2.809055] (-) TimerEvent: {}
+[2.909374] (-) TimerEvent: {}
+[3.009785] (-) TimerEvent: {}
+[3.110202] (-) TimerEvent: {}
+[3.210525] (-) TimerEvent: {}
+[3.310779] (-) TimerEvent: {}
+[3.411096] (-) TimerEvent: {}
+[3.511351] (-) TimerEvent: {}
+[3.611676] (-) TimerEvent: {}
+[3.711965] (-) TimerEvent: {}
+[3.812272] (-) TimerEvent: {}
+[3.912572] (-) TimerEvent: {}
+[4.012893] (-) TimerEvent: {}
+[4.113272] (-) TimerEvent: {}
+[4.213525] (-) TimerEvent: {}
+[4.313839] (-) TimerEvent: {}
+[4.414190] (-) TimerEvent: {}
+[4.514561] (-) TimerEvent: {}
+[4.614960] (-) TimerEvent: {}
+[4.715315] (-) TimerEvent: {}
+[4.815931] (-) TimerEvent: {}
+[4.916546] (-) TimerEvent: {}
+[5.017107] (-) TimerEvent: {}
+[5.117717] (-) TimerEvent: {}
+[5.218358] (-) TimerEvent: {}
+[5.318976] (-) TimerEvent: {}
+[5.419581] (-) TimerEvent: {}
+[5.520197] (-) TimerEvent: {}
+[5.704836] (-) TimerEvent: {}
+[5.805176] (-) TimerEvent: {}
+[5.905462] (-) TimerEvent: {}
+[6.005789] (-) TimerEvent: {}
+[6.106096] (-) TimerEvent: {}
+[6.206378] (-) TimerEvent: {}
+[6.306730] (-) TimerEvent: {}
+[6.407011] (-) TimerEvent: {}
+[6.507327] (-) TimerEvent: {}
+[6.607685] (-) TimerEvent: {}
+[6.708014] (-) TimerEvent: {}
+[6.808326] (-) TimerEvent: {}
+[6.908723] (-) TimerEvent: {}
+[7.009342] (-) TimerEvent: {}
+[7.109671] (-) TimerEvent: {}
+[7.210005] (-) TimerEvent: {}
+[7.310345] (-) TimerEvent: {}
+[7.410674] (-) TimerEvent: {}
+[7.511014] (-) TimerEvent: {}
+[7.611329] (-) TimerEvent: {}
+[7.711711] (-) TimerEvent: {}
+[7.812292] (-) TimerEvent: {}
+[7.912599] (-) TimerEvent: {}
+[8.012906] (-) TimerEvent: {}
+[8.113203] (-) TimerEvent: {}
+[8.213527] (-) TimerEvent: {}
+[8.313960] (-) TimerEvent: {}
+[8.414323] (-) TimerEvent: {}
+[8.514695] (-) TimerEvent: {}
+[8.615016] (-) TimerEvent: {}
+[8.715345] (-) TimerEvent: {}
+[8.815653] (-) TimerEvent: {}
+[8.916015] (-) TimerEvent: {}
+[9.016407] (-) TimerEvent: {}
+[9.116756] (-) TimerEvent: {}
+[9.217076] (-) TimerEvent: {}
+[9.317400] (-) TimerEvent: {}
+[9.417764] (-) TimerEvent: {}
+[9.518070] (-) TimerEvent: {}
+[9.618440] (-) TimerEvent: {}
+[9.718723] (-) TimerEvent: {}
+[9.819150] (-) TimerEvent: {}
+[9.919598] (-) TimerEvent: {}
+[10.019968] (-) TimerEvent: {}
+[10.120389] (-) TimerEvent: {}
+[10.220760] (-) TimerEvent: {}
+[10.321094] (-) TimerEvent: {}
+[10.421487] (-) TimerEvent: {}
+[10.521862] (-) TimerEvent: {}
+[10.622184] (-) TimerEvent: {}
+[10.722501] (-) TimerEvent: {}
+[10.822832] (-) TimerEvent: {}
+[10.923187] (-) TimerEvent: {}
+[11.023484] (-) TimerEvent: {}
+[11.123814] (-) TimerEvent: {}
+[11.224190] (-) TimerEvent: {}
+[11.324501] (-) TimerEvent: {}
+[11.424839] (-) TimerEvent: {}
+[11.525207] (-) TimerEvent: {}
+[11.625584] (-) TimerEvent: {}
+[11.725901] (-) TimerEvent: {}
+[11.826217] (-) TimerEvent: {}
+[11.926536] (-) TimerEvent: {}
+[12.026878] (-) TimerEvent: {}
+[12.127210] (-) TimerEvent: {}
+[12.227543] (-) TimerEvent: {}
+[12.327894] (-) TimerEvent: {}
+[12.428262] (-) TimerEvent: {}
+[12.528638] (-) TimerEvent: {}
+[12.628933] (-) TimerEvent: {}
+[12.729246] (-) TimerEvent: {}
+[12.829571] (-) TimerEvent: {}
+[12.929954] (-) TimerEvent: {}
+[13.030359] (-) TimerEvent: {}
+[13.130673] (-) TimerEvent: {}
+[13.231012] (-) TimerEvent: {}
+[13.331379] (-) TimerEvent: {}
+[13.432215] (-) TimerEvent: {}
+[13.532757] (-) TimerEvent: {}
+[13.633218] (-) TimerEvent: {}
+[13.733573] (-) TimerEvent: {}
+[13.833988] (-) TimerEvent: {}
+[13.934381] (-) TimerEvent: {}
+[14.034807] (-) TimerEvent: {}
+[14.135276] (-) TimerEvent: {}
+[14.235662] (-) TimerEvent: {}
+[14.336011] (-) TimerEvent: {}
+[14.436362] (-) TimerEvent: {}
+[14.536758] (-) TimerEvent: {}
+[14.637114] (-) TimerEvent: {}
+[14.737487] (-) TimerEvent: {}
+[14.837951] (-) TimerEvent: {}
+[14.938294] (-) TimerEvent: {}
+[15.038673] (-) TimerEvent: {}
+[15.139054] (-) TimerEvent: {}
+[15.239459] (-) TimerEvent: {}
+[15.339898] (-) TimerEvent: {}
+[15.440285] (-) TimerEvent: {}
+[15.540692] (-) TimerEvent: {}
+[15.641054] (-) TimerEvent: {}
+[15.741440] (-) TimerEvent: {}
+[15.841836] (-) TimerEvent: {}
+[15.942237] (-) TimerEvent: {}
+[16.042668] (-) TimerEvent: {}
+[16.143070] (-) TimerEvent: {}
+[16.243453] (-) TimerEvent: {}
+[16.343823] (-) TimerEvent: {}
+[16.444254] (-) TimerEvent: {}
+[16.544625] (-) TimerEvent: {}
+[16.644944] (-) TimerEvent: {}
+[16.745319] (-) TimerEvent: {}
+[16.845690] (-) TimerEvent: {}
+[16.946074] (-) TimerEvent: {}
+[17.046441] (-) TimerEvent: {}
+[17.146812] (-) TimerEvent: {}
+[17.247227] (-) TimerEvent: {}
+[17.347587] (-) TimerEvent: {}
+[17.448166] (-) TimerEvent: {}
+[17.548563] (-) TimerEvent: {}
+[17.648929] (-) TimerEvent: {}
+[17.749305] (-) TimerEvent: {}
+[17.849676] (-) TimerEvent: {}
+[17.950016] (-) TimerEvent: {}
+[18.050425] (-) TimerEvent: {}
+[18.150910] (-) TimerEvent: {}
+[18.251249] (-) TimerEvent: {}
+[18.351694] (-) TimerEvent: {}
+[18.452175] (-) TimerEvent: {}
+[18.552470] (-) TimerEvent: {}
+[18.652800] (-) TimerEvent: {}
+[18.753203] (-) TimerEvent: {}
+[18.853538] (-) TimerEvent: {}
+[18.953937] (-) TimerEvent: {}
+[19.054293] (-) TimerEvent: {}
+[19.154687] (-) TimerEvent: {}
+[19.255079] (-) TimerEvent: {}
+[19.355502] (-) TimerEvent: {}
+[19.455875] (-) TimerEvent: {}
+[19.556162] (-) TimerEvent: {}
+[19.656473] (-) TimerEvent: {}
+[19.756769] (-) TimerEvent: {}
+[19.857098] (-) TimerEvent: {}
+[19.910337] (vr_hud_node) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable vr_hud_src\x1b[0m\n'}
+[19.957307] (-) TimerEvent: {}
+[20.057656] (-) TimerEvent: {}
+[20.158004] (-) TimerEvent: {}
+[20.258526] (-) TimerEvent: {}
+[20.358880] (-) TimerEvent: {}
+[20.459183] (-) TimerEvent: {}
+[20.559521] (-) TimerEvent: {}
+[20.659815] (-) TimerEvent: {}
+[20.760093] (-) TimerEvent: {}
+[20.860434] (-) TimerEvent: {}
+[20.960799] (-) TimerEvent: {}
+[21.061286] (-) TimerEvent: {}
+[21.161549] (-) TimerEvent: {}
+[21.261879] (-) TimerEvent: {}
+[21.362172] (-) TimerEvent: {}
+[21.462494] (-) TimerEvent: {}
+[21.562868] (-) TimerEvent: {}
+[21.663168] (-) TimerEvent: {}
+[21.763464] (-) TimerEvent: {}
+[21.784999] (vr_hud_node) StdoutLine: {'line': b'[100%] Built target vr_hud_src\n'}
+[21.863675] (-) TimerEvent: {}
+[21.889483] (vr_hud_node) CommandEnded: {'returncode': 0}
+[21.892995] (vr_hud_node) JobProgress: {'identifier': 'vr_hud_node', 'progress': 'install'}
+[21.928645] (vr_hud_node) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/user/ros2_ws/build/vr_hud_node'], 'cwd': '/home/user/ros2_ws/build/vr_hud_node', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'QT_SCALE_FACTOR': '1', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'LANGUAGE': 'en', 'USER': 'user', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'XDG_SEAT': 'seat0', 'SSH_AGENT_PID': '2027', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/user', 'CHROME_DESKTOP': 'com.microsoft.VSCode.desktop', 'OLDPWD': '/home/user/ros2_ws', 'TERM_PROGRAM_VERSION': '1.145.2', 'DESKTOP_SESSION': 'xfce', 'PANEL_GDK_CORE_DEVICE_EVENTS': '0', 'ROS_PYTHON_VERSION': '3', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'VSCODE_GIT_ASKPASS_MAIN': '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/usr/share/code/code', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'GDK_SCALE': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/user/ros2_ws/install', 'ROS_DISTRO': 'jazzy', 'GDK_DPI_SCALE': '1', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'user', 'QT_AUTO_SCREEN_SCALE_FACTOR': '0', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': 'c2', 'FC_FONTATIONS': '1', 'PATH': '/home/user/.local/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/home/user/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/bubuntu:@/tmp/.ICE-unix/1857,unix/bubuntu:/tmp/.ICE-unix/1857', 'FASTRTPS_DEFAULT_PROFILES_FILE': '/home/user/fastdds_config.xml', 'GDM_LANG': 'en', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_MENU_PREFIX': 'xfce-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0.0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'XFCE', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'xfce', 'XAUTHORITY': '/home/user/.Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-e2b76fa2dd.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/tmp/ssh-KxReJp9uLY6p/agent.2024', 'ROS_DOMAIN_ID': '1', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/user', 'AMENT_PREFIX_PATH': '/home/user/ros2_ws/install/vr_hud_node:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'xfce', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'QT_IM_MODULE': 'ibus', 'XDG_VTNR': '7', 'PWD': '/home/user/ros2_ws/build/vr_hud_node', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-xfce:/etc/xdg', 'CLUTTER_IM_MODULE': 'ibus', 'XDG_DATA_DIRS': '/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share', 'PYTHONPATH': '/opt/ros/jazzy/opt/gz_sim_vendor/lib/python:/opt/ros/jazzy/opt/sdformat_vendor/lib/python:/opt/ros/jazzy/opt/gz_transport_vendor/lib/python:/opt/ros/jazzy/opt/gz_msgs_vendor/lib/python:/opt/ros/jazzy/opt/gz_math_vendor/lib/python:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/user/ros2_ws/install/vr_hud_node:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[21.944213] (vr_hud_node) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[21.945536] (vr_hud_node) StdoutLine: {'line': b'-- Installing: /home/user/ros2_ws/install/vr_hud_node/lib/vr_hud_node/vr_hud_src\n'}
+[21.958985] (vr_hud_node) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/ros2_ws/install/vr_hud_node/lib/vr_hud_node/vr_hud_src" to ""\n'}
+[21.959515] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/ament_index/resource_index/package_run_dependencies/vr_hud_node\n'}
+[21.959855] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/ament_index/resource_index/parent_prefix_path/vr_hud_node\n'}
+[21.960056] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/environment/ament_prefix_path.sh\n'}
+[21.960234] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/environment/ament_prefix_path.dsv\n'}
+[21.960354] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/environment/path.sh\n'}
+[21.960528] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/environment/path.dsv\n'}
+[21.960712] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/local_setup.bash\n'}
+[21.960917] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/local_setup.sh\n'}
+[21.961106] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/local_setup.zsh\n'}
+[21.961253] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/local_setup.dsv\n'}
+[21.961404] (vr_hud_node) StdoutLine: {'line': b'-- Installing: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/package.dsv\n'}
+[21.961558] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/ament_index/resource_index/packages/vr_hud_node\n'}
+[21.961666] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/cmake/vr_hud_nodeConfig.cmake\n'}
+[21.961756] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/cmake/vr_hud_nodeConfig-version.cmake\n'}
+[21.961860] (vr_hud_node) StdoutLine: {'line': b'-- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/package.xml\n'}
+[21.963051] (vr_hud_node) CommandEnded: {'returncode': 0}
+[21.964102] (-) TimerEvent: {}
+[21.990757] (vr_hud_node) JobEnded: {'identifier': 'vr_hud_node', 'rc': 0}
+[21.991659] (-) EventReactorShutdown: {}

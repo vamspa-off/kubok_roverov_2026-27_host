@@ -1,0 +1,24 @@
+[0.019s] Invoking command in '/home/user/ros2_ws/build/vr_hud_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8
+[0.074s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.506s] -- Found rclcpp: 28.1.22 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.561s] -- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.579s] -- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.602s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.630s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.754s] -- Found rmw_implementation_cmake: 7.3.4 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.756s] -- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.876s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.014s] -- Found sensor_msgs: 5.3.8 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[1.114s] -- Found cv_bridge: 4.1.0 (/opt/ros/jazzy/share/cv_bridge/cmake)
+[1.135s] [31mCMake Error at /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+[1.136s]   Could NOT find OpenCV (missing: cudaarithm cudawarping cudaimgproc) (found
+[1.136s]   version "4.6.0")
+[1.136s] Call Stack (most recent call first):
+[1.136s]   /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+[1.136s]   /usr/lib/x86_64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake:354 (find_package_handle_standard_args)
+[1.137s]   CMakeLists.txt:16 (find_package)
+[1.137s] 
+[1.137s] [0m
+[1.137s] -- Configuring incomplete, errors occurred!
+[1.150s] gmake: *** [Makefile:267: cmake_check_build_system] Error 1
+[1.153s] Invoked command in '/home/user/ros2_ws/build/vr_hud_node' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8

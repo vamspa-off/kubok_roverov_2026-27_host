@@ -1,0 +1,22 @@
+[0.016s] Invoking command in '/home/user/ros2_ws/build/vr_hud_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8
+[0.104s] [100%] Built target vr_hud_src
+[0.120s] Invoked command in '/home/user/ros2_ws/build/vr_hud_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8
+[0.135s] Invoking command in '/home/user/ros2_ws/build/vr_hud_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/user/ros2_ws/build/vr_hud_node
+[0.146s] -- Install configuration: ""
+[0.146s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/lib/vr_hud_node/vr_hud_src
+[0.147s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/ament_index/resource_index/package_run_dependencies/vr_hud_node
+[0.147s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/ament_index/resource_index/parent_prefix_path/vr_hud_node
+[0.147s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/environment/ament_prefix_path.sh
+[0.147s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/environment/ament_prefix_path.dsv
+[0.147s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/environment/path.sh
+[0.147s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/environment/path.dsv
+[0.148s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/local_setup.bash
+[0.148s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/local_setup.sh
+[0.148s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/local_setup.zsh
+[0.148s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/local_setup.dsv
+[0.148s] -- Installing: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/package.dsv
+[0.148s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/ament_index/resource_index/packages/vr_hud_node
+[0.148s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/cmake/vr_hud_nodeConfig.cmake
+[0.148s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/cmake/vr_hud_nodeConfig-version.cmake
+[0.148s] -- Up-to-date: /home/user/ros2_ws/install/vr_hud_node/share/vr_hud_node/package.xml
+[0.150s] Invoked command in '/home/user/ros2_ws/build/vr_hud_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/user/ros2_ws/build/vr_hud_node

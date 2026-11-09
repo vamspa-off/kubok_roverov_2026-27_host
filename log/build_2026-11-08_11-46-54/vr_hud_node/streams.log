@@ -1,0 +1,30 @@
+[0.018s] Invoking command in '/home/user/ros2_ws/build/vr_hud_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8
+[0.064s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.462s] -- Found rclcpp: 28.1.22 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.521s] -- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.539s] -- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.565s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.591s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.718s] -- Found rmw_implementation_cmake: 7.3.4 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.721s] -- Found rmw_fastrtps_cpp: 8.4.4 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.830s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.967s] -- Found sensor_msgs: 5.3.8 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[1.082s] -- Found cv_bridge: 4.1.0 (/opt/ros/jazzy/share/cv_bridge/cmake)
+[1.308s] -- Configuring done (1.3s)
+[1.337s] -- Generating done (0.0s)
+[1.343s] -- Build files have been written to: /home/user/ros2_ws/build/vr_hud_node
+[1.400s] [ 50%] [32mBuilding CXX object CMakeFiles/vr_hud_src.dir/src/vr_hud_node.cpp.o[0m
+[6.277s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:[m[K In constructor ‘[01m[KVrHudNode::[01;32m[KVrHudNode[m[K()[m[K’:
+[6.277s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:18:76:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+[6.277s]    18 |             std::bind(&VrHudNode::image_callback, this, std::placeholders::[01;31m[K1[m[K));
+[6.277s]       |                                                                            [01;31m[K^[m[K
+[6.277s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:23:76:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+[6.277s]    23 |             std::bind(&VrHudNode::speed_callback, this, std::placeholders::[01;31m[K1[m[K));
+[6.277s]       |                                                                            [01;31m[K^[m[K
+[6.278s] [01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:27:75:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before numeric constant
+[6.278s]    27 |             std::bind(&VrHudNode::gear_callback, this, std::placeholders::[01;31m[K1[m[K));
+[6.278s]       |                                                                           [01;31m[K^[m[K
+[8.391s] gmake[2]: *** [CMakeFiles/vr_hud_src.dir/build.make:76: CMakeFiles/vr_hud_src.dir/src/vr_hud_node.cpp.o] Error 1
+[8.392s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/vr_hud_src.dir/all] Error 2
+[8.392s] gmake: *** [Makefile:146: all] Error 2
+[8.395s] Invoked command in '/home/user/ros2_ws/build/vr_hud_node' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/ros2_ws/build/vr_hud_node -- -j8 -l8

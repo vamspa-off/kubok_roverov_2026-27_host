@@ -1,0 +1,10 @@
+[31mCMake Error at /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+  Could NOT find OpenCV (missing: cudaarithm cudawarping cudaimgproc) (found
+  version "4.6.0")
+Call Stack (most recent call first):
+  /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+  /usr/lib/x86_64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake:354 (find_package_handle_standard_args)
+  CMakeLists.txt:16 (find_package)
+
+[0m
+gmake: *** [Makefile:267: cmake_check_build_system] Error 1

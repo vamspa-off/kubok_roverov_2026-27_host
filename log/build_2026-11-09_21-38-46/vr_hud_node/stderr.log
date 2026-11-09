@@ -1,0 +1,12 @@
+[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:173:53:[m[K [01;35m[Kwarning: [m[Kmulti-character character constant [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmultichar-Wmultichar]8;;[m[K]
+  173 |         else if (key == 'a' || key == 'A' || key == [01;35m[K'а'[m[K || key == 'А') {
+      |                                                     [01;35m[K^~~[m[K
+[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:173:67:[m[K [01;35m[Kwarning: [m[Kmulti-character character constant [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmultichar-Wmultichar]8;;[m[K]
+  173 |         else if (key == 'a' || key == 'A' || key == 'а' || key == [01;35m[K'А'[m[K) {
+      |                                                                   [01;35m[K^~~[m[K
+[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:176:55:[m[K [01;35m[Kwarning: [m[Kmulti-character character constant [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmultichar-Wmultichar]8;;[m[K]
+  176 |         } else if (key == 'd' || key == 'D' || key == [01;35m[K'в'[m[K || key == 'В') {
+      |                                                       [01;35m[K^~~[m[K
+[01m[K/home/user/ros2_ws/src/vr_hud_node/src/vr_hud_node.cpp:176:69:[m[K [01;35m[Kwarning: [m[Kmulti-character character constant [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmultichar-Wmultichar]8;;[m[K]
+  176 |         } else if (key == 'd' || key == 'D' || key == 'в' || key == [01;35m[K'В'[m[K) {
+      |                                                                     [01;35m[K^~~[m[K
