@@ -23,27 +23,48 @@ public:
         gear_sub_ = this->create_subscription<std_msgs::msg::Int32>(
             "/robot/telemetry/gear", 10,
             [this](const std_msgs::msg::Int32::SharedPtr msg) { current_gear_ = msg->data; });
+
+        // Инициализируем карты дисторсии при старте
+        update_lens_maps(0.0f);
+    }
+
+    // Метод для обновления карт (вызывается при изменении IPD)
+    void update_lens_maps(float ipd_center_shift) {
+        std::lock_guard<std::mutex> lock(maps_mutex_);
+        generate_lens_maps(true, ipd_center_shift, left_map_x_, left_map_y_);
+        generate_lens_maps(false, ipd_center_shift, right_map_x_, right_map_y_);
     }
 
     cv::Mat render_eye(bool is_left, float ipd_center_shift) {
         cv::Mat eye_canvas = cv::Mat::zeros(1200, 1080, CV_8UC3);
 
-        if (latest_frame_.empty()) {
+        // БЕЗОПАСНО КОПИРУЕМ КАДР ПОД МЬЮТЕКСОМ
+        cv::Mat local_frame;
+        {
+            std::lock_guard<std::mutex> lock(frame_mutex_);
+            if (!latest_frame_.empty()) {
+                local_frame = latest_frame_.clone(); // clone гарантирует независимость памяти
+            }
+        }
+
+        if (local_frame.empty()) {
             cv::putText(eye_canvas, "WAITING FOR CAMERA...", cv::Point(150, 600), 
                         cv::FONT_HERSHEY_SIMPLEX, 1.2, cv::Scalar(0, 0, 255), 3);
             return eye_canvas;
         }
 
-        float scale_w = (1080.0f / latest_frame_.cols) * 1.85f;
-        float scale_h = (1200.0f / latest_frame_.rows) * 1.10f;
+        // 1. МАСШТАБИРОВАНИЕ
+        float scale_w = (1080.0f / local_frame.cols) * 1.0f;
+        float scale_h = (1200.0f / local_frame.rows) * 1.0f;
         float max_scale = std::max(scale_w, scale_h);
 
-        int target_w = static_cast<int>(latest_frame_.cols * max_scale);
-        int target_h = static_cast<int>(latest_frame_.rows * max_scale);
+        int target_w = static_cast<int>(local_frame.cols * max_scale);
+        int target_h = static_cast<int>(local_frame.rows * max_scale);
         
         cv::Mat resized_camera;
-        cv::resize(latest_frame_, resized_camera, cv::Size(target_w, target_h));
+        cv::resize(local_frame, resized_camera, cv::Size(target_w, target_h));
 
+        // СБОРКА СТЕРЕОПАРЫ
         int texture_shift = -50; 
         int start_x = (target_w - 1080) / 2 + (is_left ? texture_shift : -texture_shift);
         int start_y = (target_h - 1200) / 2;
@@ -54,19 +75,26 @@ public:
         cv::Rect crop_roi(start_x, start_y, 1080, 1200);
         resized_camera(crop_roi).copyTo(eye_canvas);
         
-        std::string speed_str = "SPEED: " + cv::format("%.1f", current_speed_) + " km/h";
-        std::string gear_str = "GEAR: " + (current_gear_ == 0 ? "R" : (current_gear_ == 1 ? "N" : std::to_string(current_gear_ - 1)));
+        // 2. ОТРИСОВКА HUD
+        std::string speed_str = "SPEED: " + cv::format("%.1f", current_speed_.load()) + " km/h";
+        int gear = current_gear_.load();
+        std::string gear_str = "GEAR: " + (gear == 0 ? "R" : (gear == 1 ? "N" : std::to_string(gear - 1)));
         
-        int hud_x = is_left ? 180 : 120; 
+        int hud_x = is_left ? 215 : 120; 
         cv::putText(eye_canvas, speed_str, cv::Point(hud_x, 240), cv::FONT_HERSHEY_SIMPLEX, 1.4, cv::Scalar(0, 255, 0), 4, cv::LINE_AA);
         cv::putText(eye_canvas, gear_str, cv::Point(hud_x, 320), cv::FONT_HERSHEY_SIMPLEX, 1.4, cv::Scalar(0, 255, 0), 4, cv::LINE_AA);
-
-        cv::Mat map_x, map_y;
-        generate_lens_maps(is_left, ipd_center_shift, map_x, map_y);
-
+        
+        // 3. ПРИМЕНЕНИЕ ДИСТОРСИИ ИЗ КЭША
         cv::Mat distorted_eye;
-        cv::remap(eye_canvas, distorted_eye, map_x, map_y, cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0, 0, 0));
+        {
+            std::lock_guard<std::mutex> lock(maps_mutex_);
+            cv::remap(eye_canvas, distorted_eye, 
+                      is_left ? left_map_x_ : right_map_x_, 
+                      is_left ? left_map_y_ : right_map_y_, 
+                      cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0, 0, 0));
+        }
 
+        // 4. НАЛОЖЕНИЕ МАСКИ
         float optical_offset = 45.0f + (is_left ? ipd_center_shift : -ipd_center_shift);
         cv::Point lens_center((1080 / 2) + (is_left ? optical_offset : -optical_offset), 1200 / 2);
         
@@ -83,10 +111,12 @@ public:
 
 private:
     void image_callback(const sensor_msgs::msg::CompressedImage::SharedPtr msg) {
-        std::lock_guard<std::mutex> lock(frame_mutex_);
         if (!msg->data.empty()) {
             cv::Mat decoded = cv::imdecode(msg->data, cv::IMREAD_COLOR);
-            if (!decoded.empty()) latest_frame_ = decoded;
+            if (!decoded.empty()) {
+                std::lock_guard<std::mutex> lock(frame_mutex_);
+                latest_frame_ = decoded;
+            }
         }
     }
 
@@ -123,10 +153,18 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::CompressedImage>::SharedPtr image_sub_;
     rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr speed_sub_;
     rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr gear_sub_;
+    
     cv::Mat latest_frame_;
     std::mutex frame_mutex_;
-    float current_speed_ = 0.0f;
-    int current_gear_ = 1;
+    std::mutex maps_mutex_;
+
+    // Кэш для карт ремаппинга
+    cv::Mat left_map_x_, left_map_y_;
+    cv::Mat right_map_x_, right_map_y_;
+
+    // Использование std::atomic защищает примитивные типы от race conditions без мьютексов
+    std::atomic<float> current_speed_{0.0f};
+    std::atomic<int> current_gear_{1};
 };
 
 int main(int argc, char** argv) {
@@ -163,9 +201,11 @@ int main(int argc, char** argv) {
         } 
         else if (key == 'a' || key == 'A' || key == 'а' || key == 'А') {
             ipd_center_shift -= 1.0f; 
+            node->update_lens_maps(ipd_center_shift); // Пересчитываем карты только при изменении!
             RCLCPP_INFO(node->get_logger(), "Optical Shift: %.1f", ipd_center_shift);
         } else if (key == 'd' || key == 'D' || key == 'в' || key == 'В') {
             ipd_center_shift += 1.0f;
+            node->update_lens_maps(ipd_center_shift); // Пересчитываем карты только при изменении!
             RCLCPP_INFO(node->get_logger(), "Optical Shift: %.1f", ipd_center_shift);
         }
     }
