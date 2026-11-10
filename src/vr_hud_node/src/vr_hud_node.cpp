@@ -6,6 +6,7 @@
 #include <mutex>
 #include <thread>
 #include <algorithm>
+#include <atomic>
 
 class VrHudNode : public rclcpp::Node {
 public:
@@ -24,11 +25,20 @@ public:
             "/robot/telemetry/gear", 10,
             [this](const std_msgs::msg::Int32::SharedPtr msg) { current_gear_ = msg->data; });
 
-        // Инициализируем карты дисторсии при старте
+        this->declare_parameter<double>("image_zoom", 1.0);
+        image_zoom_ = clamp_zoom(static_cast<float>(this->get_parameter("image_zoom").as_double()));
+
         update_lens_maps(0.0f);
     }
 
-    // Метод для обновления карт (вызывается при изменении IPD)
+    static float clamp_zoom(float z) { return std::max(0.3f, std::min(z, 2.0f)); }
+
+    float change_zoom(float delta) {
+        float z = clamp_zoom(image_zoom_.load() + delta);
+        image_zoom_ = z;
+        return z;
+    }
+
     void update_lens_maps(float ipd_center_shift) {
         std::lock_guard<std::mutex> lock(maps_mutex_);
         generate_lens_maps(true, ipd_center_shift, left_map_x_, left_map_y_);
@@ -38,12 +48,11 @@ public:
     cv::Mat render_eye(bool is_left, float ipd_center_shift) {
         cv::Mat eye_canvas = cv::Mat::zeros(1200, 1080, CV_8UC3);
 
-        // БЕЗОПАСНО КОПИРУЕМ КАДР ПОД МЬЮТЕКСОМ
         cv::Mat local_frame;
         {
             std::lock_guard<std::mutex> lock(frame_mutex_);
             if (!latest_frame_.empty()) {
-                local_frame = latest_frame_.clone(); // clone гарантирует независимость памяти
+                local_frame = latest_frame_.clone();
             }
         }
 
@@ -53,29 +62,36 @@ public:
             return eye_canvas;
         }
 
-        // 1. МАСШТАБИРОВАНИЕ
-        float scale_w = (1080.0f / local_frame.cols) * 1.0f;
-        float scale_h = (1200.0f / local_frame.rows) * 1.0f;
-        float max_scale = std::max(scale_w, scale_h);
+        const float zoom = image_zoom_.load();
+        float scale_w = 1080.0f / local_frame.cols;
+        float scale_h = 1200.0f / local_frame.rows;
+        float scale = std::max(scale_w, scale_h) * zoom;
 
-        int target_w = static_cast<int>(local_frame.cols * max_scale);
-        int target_h = static_cast<int>(local_frame.rows * max_scale);
-        
+        int target_w = std::max(1, static_cast<int>(std::lround(local_frame.cols * scale)));
+        int target_h = std::max(1, static_cast<int>(std::lround(local_frame.rows * scale)));
+
         cv::Mat resized_camera;
-        cv::resize(local_frame, resized_camera, cv::Size(target_w, target_h));
+        cv::resize(local_frame, resized_camera, cv::Size(target_w, target_h), 0, 0,
+                   scale < 1.0f ? cv::INTER_AREA : cv::INTER_LINEAR);
 
-        // СБОРКА СТЕРЕОПАРЫ
-        int texture_shift = -50; 
-        int start_x = (target_w - 1080) / 2 + (is_left ? texture_shift : -texture_shift);
-        int start_y = (target_h - 1200) / 2;
+        int texture_shift = -50;
+        int img_cx = 1080 / 2 + (is_left ? -texture_shift : texture_shift);
+        int img_cy = 1200 / 2;
 
-        start_x = std::max(0, std::min(start_x, target_w - 1080));
-        start_y = std::max(0, std::min(start_y, target_h - 1200));
+        int dst_x = img_cx - target_w / 2;
+        int dst_y = img_cy - target_h / 2;
 
-        cv::Rect crop_roi(start_x, start_y, 1080, 1200);
-        resized_camera(crop_roi).copyTo(eye_canvas);
-        
-        // 2. ОТРИСОВКА HUD
+        if (zoom >= 1.0f) {
+            if (target_w >= 1080) dst_x = std::max(1080 - target_w, std::min(dst_x, 0));
+            if (target_h >= 1200) dst_y = std::max(1200 - target_h, std::min(dst_y, 0));
+        }
+
+        cv::Rect dst_rect = cv::Rect(dst_x, dst_y, target_w, target_h) & cv::Rect(0, 0, 1080, 1200);
+        if (dst_rect.area() > 0) {
+            cv::Rect src_rect(dst_rect.x - dst_x, dst_rect.y - dst_y, dst_rect.width, dst_rect.height);
+            resized_camera(src_rect).copyTo(eye_canvas(dst_rect));
+        }
+
         std::string speed_str = "SPEED: " + cv::format("%.1f", current_speed_.load()) + " km/h";
         int gear = current_gear_.load();
         std::string gear_str = "GEAR: " + (gear == 0 ? "R" : (gear == 1 ? "N" : std::to_string(gear - 1)));
@@ -84,7 +100,6 @@ public:
         cv::putText(eye_canvas, speed_str, cv::Point(hud_x, 240), cv::FONT_HERSHEY_SIMPLEX, 1.4, cv::Scalar(0, 255, 0), 4, cv::LINE_AA);
         cv::putText(eye_canvas, gear_str, cv::Point(hud_x, 320), cv::FONT_HERSHEY_SIMPLEX, 1.4, cv::Scalar(0, 255, 0), 4, cv::LINE_AA);
         
-        // 3. ПРИМЕНЕНИЕ ДИСТОРСИИ ИЗ КЭША
         cv::Mat distorted_eye;
         {
             std::lock_guard<std::mutex> lock(maps_mutex_);
@@ -94,7 +109,6 @@ public:
                       cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0, 0, 0));
         }
 
-        // 4. НАЛОЖЕНИЕ МАСКИ
         float optical_offset = 45.0f + (is_left ? ipd_center_shift : -ipd_center_shift);
         cv::Point lens_center((1080 / 2) + (is_left ? optical_offset : -optical_offset), 1200 / 2);
         
@@ -158,11 +172,10 @@ private:
     std::mutex frame_mutex_;
     std::mutex maps_mutex_;
 
-    // Кэш для карт ремаппинга
     cv::Mat left_map_x_, left_map_y_;
     cv::Mat right_map_x_, right_map_y_;
 
-    // Использование std::atomic защищает примитивные типы от race conditions без мьютексов
+    std::atomic<float> image_zoom_{1.0f};
     std::atomic<float> current_speed_{0.0f};
     std::atomic<int> current_gear_{1};
 };
@@ -178,7 +191,7 @@ int main(int argc, char** argv) {
 
     float ipd_center_shift = 0.0f; 
 
-    RCLCPP_INFO(node->get_logger(), "VR HUD Oculus-Mask style started. Use 'A' and 'D' to tweak!");
+    RCLCPP_INFO(node->get_logger(), "VR HUD Oculus-Mask style started. Use 'A'/'D' for IPD, 'W'/'S' (or +/-) for image zoom!");
 
     while (rclcpp::ok()) {
         cv::Mat left_eye = node->render_eye(true, ipd_center_shift);
@@ -191,7 +204,7 @@ int main(int argc, char** argv) {
         int key = cv::waitKey(11);
         if (key == 27) { // ESC
             break;
-        } else if (key == 121 || key == 201) { // F11
+        } else if (key == 121 || key == 201) {
             double prop = cv::getWindowProperty(window_name, cv::WND_PROP_FULLSCREEN);
             if (prop == cv::WINDOW_FULLSCREEN) {
                 cv::setWindowProperty(window_name, cv::WND_PROP_FULLSCREEN, cv::WINDOW_NORMAL);
@@ -199,13 +212,18 @@ int main(int argc, char** argv) {
                 cv::setWindowProperty(window_name, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
             }
         } 
+        else if (key == 's' || key == 'S' || key == '-' || key == 'ы' || key == 'Ы') {
+            RCLCPP_INFO(node->get_logger(), "Image zoom: %.2f", node->change_zoom(-0.02f));
+        } else if (key == 'w' || key == 'W' || key == '+' || key == '=' || key == 'ц' || key == 'Ц') {
+            RCLCPP_INFO(node->get_logger(), "Image zoom: %.2f", node->change_zoom(+0.02f));
+        }
         else if (key == 'a' || key == 'A' || key == 'а' || key == 'А') {
             ipd_center_shift -= 1.0f; 
-            node->update_lens_maps(ipd_center_shift); // Пересчитываем карты только при изменении!
+            node->update_lens_maps(ipd_center_shift);
             RCLCPP_INFO(node->get_logger(), "Optical Shift: %.1f", ipd_center_shift);
         } else if (key == 'd' || key == 'D' || key == 'в' || key == 'В') {
             ipd_center_shift += 1.0f;
-            node->update_lens_maps(ipd_center_shift); // Пересчитываем карты только при изменении!
+            node->update_lens_maps(ipd_center_shift);
             RCLCPP_INFO(node->get_logger(), "Optical Shift: %.1f", ipd_center_shift);
         }
     }
