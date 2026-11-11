@@ -8,19 +8,25 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
 
 add_executable(vr_hud_src src/vr_hud_node.cpp)
 
+# Включаем CUDA-путь, только если OpenCV собран с cudawarping
+if("opencv_cudawarping" IN_LIST OpenCV_LIBS)
+  message(STATUS "OpenCV with CUDA found: building GPU path")
+  target_compile_definitions(vr_hud_src PRIVATE VR_HUD_USE_CUDA)
+else()
+  message(STATUS "OpenCV without CUDA: building CPU path only")
+endif()
+
 target_include_directories(vr_hud_src PRIVATE ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(vr_hud_src ${OpenCV_LIBRARIES})
+target_link_libraries(vr_hud_src ${OpenCV_LIBS})
 
 ament_target_dependencies(vr_hud_src
   rclcpp
   sensor_msgs
   std_msgs
-  cv_bridge
 )
 
 install(TARGETS vr_hud_src DESTINATION lib/${PROJECT_NAME})
