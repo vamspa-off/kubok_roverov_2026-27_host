@@ -29,5 +29,16 @@ ament_target_dependencies(vr_hud_src
   std_msgs
 )
 
-install(TARGETS vr_hud_src DESTINATION lib/${PROJECT_NAME})
+add_executable(joy_handler src/joy_handler.cpp)
+ament_target_dependencies(joy_handler rclcpp sensor_msgs std_msgs)
+
+install(TARGETS
+  vr_hud_src
+  joy_handler
+  DESTINATION lib/${PROJECT_NAME})
+
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME})
+
 ament_package()

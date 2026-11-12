@@ -8,21 +8,40 @@
 #include <opencv2/cudawarping.hpp>
 #endif
 #include <algorithm>
+#include <array>
 #include <atomic>
 #include <cmath>
 #include <mutex>
 #include <string>
 #include <thread>
+#include <vector>
 
 namespace {
 constexpr int EYE_W = 1080;
 constexpr int EYE_H = 1200;
 
-// Область HUD-текста (одинаковая по размеру для обоих глаз, отличается только X)
+// Под удаление
 constexpr int HUD_ROI_W = 600;
 constexpr int HUD_ROI_H = 180;
-constexpr int HUD_ROI_Y = 180;
+constexpr int HUD_ROI_Y = 350;
 inline int hud_x(bool is_left) { return is_left ? 215 : 120; }
+
+constexpr int SLOT_ROW_W = 810;
+constexpr int SLOT_ROW_H = 50;
+constexpr int SLOT_ROW_TOP_CY = 300;
+constexpr int SLOT_FONT = cv::FONT_HERSHEY_SIMPLEX;
+constexpr double SLOT_SCALE = 0.7;
+constexpr int SLOT_THICK = 2;
+
+// Offsets for HMD
+inline int slot_row_y(int row) {
+    const int cy = (row == 0) ? SLOT_ROW_TOP_CY : (EYE_H - SLOT_ROW_TOP_CY);
+    return cy - SLOT_ROW_H / 2;
+}
+inline int slot_row_x(bool is_left) {
+    const int center = EYE_W / 2 + hud_x(is_left) - (hud_x(true) + hud_x(false)) / 2;
+    return center - SLOT_ROW_W / 2;
+}
 }  // namespace
 
 class VrHudNode : public rclcpp::Node {
@@ -41,6 +60,45 @@ public:
         gear_sub_ = this->create_subscription<std_msgs::msg::Int32>(
             "/robot/telemetry/gear", 10,
             [this](const std_msgs::msg::Int32::SharedPtr msg) { current_gear_ = msg->data; });
+
+        std::vector<std::string> def_topics, def_labels, def_units;
+        def_topics.push_back("/gamepad/left_trigger");
+        def_labels.push_back("LT");
+        def_units.push_back("");
+        def_topics.push_back("/gamepad/right_trigger");
+        def_labels.push_back("RT");
+        def_units.push_back("");
+        def_topics.push_back("/gamepad/left_stick_x");
+        def_labels.push_back("LX");
+        def_units.push_back("");
+        def_topics.push_back("/gamepad/left_stick_y");
+        def_labels.push_back("LY");
+        def_units.push_back("");
+        def_topics.push_back("/gamepad/right_stick_x");
+        def_labels.push_back("RX");
+        def_units.push_back("");
+        def_topics.push_back("/gamepad/right_stick_y");
+        def_labels.push_back("RY");
+        def_units.push_back("");
+        // Don't draw empty units
+        auto slot_param = [this](const std::string& name, const std::vector<std::string>& def) {
+            this->declare_parameter<std::vector<std::string>>(name, def);
+            std::vector<std::string> v = this->get_parameter(name).as_string_array();
+            while (v.size() < 6) v.push_back(def[v.size()]);
+            return v;
+        };
+        const auto topics = slot_param("slot_topics", def_topics);
+        const auto labels = slot_param("slot_labels", def_labels);
+        const auto units  = slot_param("slot_units", def_units);
+
+        for (size_t i = 0; i < 6; ++i) {
+            slots_[i].label = labels[i];
+            slots_[i].unit = units[i];
+            slot_subs_[i] = this->create_subscription<std_msgs::msg::Float32>(
+                topics[i], 10,
+                [this, i](const std_msgs::msg::Float32::SharedPtr msg) { slots_[i].value = msg->data; });
+            RCLCPP_INFO(get_logger(), "HUD slot %zu: '%s' <- %s", i, labels[i].c_str(), topics[i].c_str());
+        }
 
         this->declare_parameter<double>("image_zoom", 1.0);
         this->declare_parameter<bool>("use_gpu", true);
@@ -79,7 +137,6 @@ public:
         return z;
     }
 
-    // Пересчёт карт дисторсии и масок (вызывается ТОЛЬКО из главного потока при смене IPD)
     void update_lens_maps(float ipd_center_shift) {
         ipd_shift_ = ipd_center_shift;
         for (int e = 0; e < 2; e++) {
@@ -121,7 +178,7 @@ public:
             if (waiting_shown_ && !force_redraw_) return false;
             waiting_img_ = cv::Mat::zeros(EYE_H, 2 * EYE_W, CV_8UC3);
             for (int e = 0; e < 2; e++) {
-                cv::putText(waiting_img_, "WAITING FOR CAMERA...", cv::Point(e * EYE_W + 150, 600),
+                cv::putText(waiting_img_, "WAITING FOR CAMERA...", cv::Point(e*EYE_W+hud_x(e==0)+170, 600),
                             cv::FONT_HERSHEY_SIMPLEX, 1.2, cv::Scalar(0, 0, 255), 3);
             }
             waiting_shown_ = true;
@@ -137,7 +194,10 @@ public:
         const std::string speed_str = "SPEED: " + cv::format("%.1f", current_speed_.load()) + " km/h";
         const int gear = current_gear_.load();
         const std::string gear_str = "GEAR: " + (gear == 0 ? "R" : (gear == 1 ? "N" : std::to_string(gear - 1)));
-        const bool hud_changed = (speed_str != hud_speed_str_ || gear_str != hud_gear_str_);
+        std::array<std::string, 6> slot_strs;
+        for (size_t i = 0; i < 6; ++i) slot_strs[i] = format_slot(i);
+        const bool hud_changed = (speed_str != hud_speed_str_ || gear_str != hud_gear_str_ ||
+                                  slot_strs != hud_slot_strs_);
 
         // Нечего перерисовывать - не тратим время
         if (!new_frame && !zoom_changed && !hud_changed && !force_redraw_) return false;
@@ -147,6 +207,7 @@ public:
         force_redraw_ = false;
         hud_speed_str_ = speed_str;
         hud_gear_str_ = gear_str;
+        hud_slot_strs_ = slot_strs;
 
 #ifdef VR_HUD_USE_CUDA
         if (use_gpu_) {
@@ -159,6 +220,34 @@ public:
     }
 
 private:
+    struct HudSlot {
+        std::string label, unit;
+        std::atomic<float> value{std::nanf("")};  // NaN = данных ещё нет
+    };
+
+    std::string format_slot(size_t i) const {
+        const float v = slots_[i].value.load();
+        std::string s = slots_[i].label + ": ";
+        if (std::isnan(v)) return s + "--";
+        s += cv::format("%.1f", v);
+        if (!slots_[i].unit.empty()) s += " " + slots_[i].unit;
+        return s;
+    }
+
+    // Рисует один ряд из 3 слотов (слева / центр / справа) в области SLOT_ROW_W x SLOT_ROW_H
+    // с левым верхним углом (ox, oy). Текст центрируется в своей колонке.
+    void draw_slot_row(cv::Mat& img, int row, int ox, int oy) const {
+        const int col_w = SLOT_ROW_W / 3;
+        for (int c = 0; c < 3; ++c) {
+            const std::string& s = hud_slot_strs_[row * 3 + c];
+            int base = 0;
+            const cv::Size ts = cv::getTextSize(s, SLOT_FONT, SLOT_SCALE, SLOT_THICK, &base);
+            const int cx = ox + c * col_w + col_w / 2;
+            cv::putText(img, s, cv::Point(cx - ts.width / 2, oy + SLOT_ROW_H / 2 + ts.height / 2),
+                        SLOT_FONT, SLOT_SCALE, cv::Scalar(0, 255, 0), SLOT_THICK, cv::LINE_AA);
+        }
+    }
+
     struct Placement {
         int tw, th;   // размер масштабированной картинки
         int x, y;     // позиция левого верхнего угла на холсте глаза
@@ -214,6 +303,9 @@ private:
                         cv::FONT_HERSHEY_SIMPLEX, 1.4, cv::Scalar(0, 255, 0), 4, cv::LINE_AA);
             cv::putText(canvas_cpu_, hud_gear_str_, cv::Point(hud_x(is_left), 320),
                         cv::FONT_HERSHEY_SIMPLEX, 1.4, cv::Scalar(0, 255, 0), 4, cv::LINE_AA);
+            for (int r = 0; r < 2; ++r) {
+                draw_slot_row(canvas_cpu_, r, slot_row_x(is_left), slot_row_y(r));
+            }
 
             cv::remap(canvas_cpu_, distorted_cpu_, map_x_[e], map_y_[e],
                       cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0, 0, 0));
@@ -237,6 +329,16 @@ private:
         cv::threshold(gray, mask, 0, 255, cv::THRESH_BINARY);
         gpu_hud_img_.upload(img);
         gpu_hud_mask_.upload(mask);
+
+        for (int r = 0; r < 2; ++r) {
+            cv::Mat row_img = cv::Mat::zeros(SLOT_ROW_H, SLOT_ROW_W, CV_8UC3);
+            draw_slot_row(row_img, r, 0, 0);
+            cv::Mat row_gray, row_mask;
+            cv::cvtColor(row_img, row_gray, cv::COLOR_BGR2GRAY);
+            cv::threshold(row_gray, row_mask, 0, 255, cv::THRESH_BINARY);
+            gpu_row_img_[r].upload(row_img);
+            gpu_row_mask_[r].upload(row_mask);
+        }
     }
 
     void render_gpu(const cv::Mat& frame, bool new_frame, bool need_resize, float zoom,
@@ -264,6 +366,12 @@ private:
 
             cv::cuda::GpuMat hud_roi = gpu_canvas_(cv::Rect(hud_x(is_left) - 10, HUD_ROI_Y, HUD_ROI_W, HUD_ROI_H));
             gpu_hud_img_.copyTo(hud_roi, gpu_hud_mask_);
+
+            for (int r = 0; r < 2; ++r) {
+                cv::cuda::GpuMat row_roi =
+                    gpu_canvas_(cv::Rect(slot_row_x(is_left), slot_row_y(r), SLOT_ROW_W, SLOT_ROW_H));
+                gpu_row_img_[r].copyTo(row_roi, gpu_row_mask_[r]);
+            }
 
             cv::cuda::remap(gpu_canvas_, gpu_distorted_, gpu_map_x_[e], gpu_map_y_[e],
                             cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar());
@@ -318,6 +426,8 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::CompressedImage>::SharedPtr image_sub_;
     rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr speed_sub_;
     rclcpp::Subscription<std_msgs::msg::Int32>::SharedPtr gear_sub_;
+    std::array<rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr, 6> slot_subs_;
+    std::array<HudSlot, 6> slots_;  // значения пишет ROS-поток, читает главный
 
     // Данные между ROS-потоком и главным потоком
     cv::Mat latest_frame_;
@@ -336,6 +446,7 @@ private:
     float last_zoom_ = -1.0f;
     float ipd_shift_ = 0.0f;
     std::string hud_speed_str_, hud_gear_str_;
+    std::array<std::string, 6> hud_slot_strs_;
 
     cv::Mat map_x_[2], map_y_[2], mask_cpu_[2];
     cv::Mat sbs_cpu_, canvas_cpu_, resized_cpu_, distorted_cpu_, waiting_img_;
@@ -344,6 +455,7 @@ private:
     cv::cuda::GpuMat gpu_frame_, gpu_resized_, gpu_canvas_, gpu_distorted_, gpu_sbs_;
     cv::cuda::GpuMat gpu_map_x_[2], gpu_map_y_[2], gpu_mask_[2];
     cv::cuda::GpuMat gpu_hud_img_, gpu_hud_mask_;
+    cv::cuda::GpuMat gpu_row_img_[2], gpu_row_mask_[2];
     cv::cuda::HostMem pinned_;
 #endif
 };
