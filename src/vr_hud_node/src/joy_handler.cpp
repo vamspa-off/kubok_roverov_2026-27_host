@@ -15,8 +15,8 @@ public:
       std::bind(&JoyHandler::joy_callback, this, std::placeholders::_1));
 
     // --- ОСИ (6 штук) ---
-    pub_left_stick_x_  = this->create_publisher<std_msgs::msg::Float32>("/gamepad/left_stick_x", 10);
-    pub_left_stick_y_  = this->create_publisher<std_msgs::msg::Float32>("/gamepad/left_stick_y", 10);
+    pub_host_speed_  = this->create_publisher<std_msgs::msg::Float32>("/host/speed", 10);
+    pub_host_dir_  = this->create_publisher<std_msgs::msg::Float32>("/host/dir", 10);
     pub_left_trigger_  = this->create_publisher<std_msgs::msg::Float32>("/gamepad/left_trigger", 10);
     pub_right_stick_x_ = this->create_publisher<std_msgs::msg::Float32>("/gamepad/right_stick_x", 10);
     pub_right_stick_y_ = this->create_publisher<std_msgs::msg::Float32>("/gamepad/right_stick_y", 10);
@@ -37,6 +37,15 @@ public:
   }
 
 private:
+  short gear = 0;
+  bool gearchanged = 0;
+  void publish_raw(const float data,
+                    const rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr & pub)
+  {
+    std_msgs::msg::Float32 out;
+    out.data = data;
+    pub->publish(out);
+  }
   void publish_axis(const sensor_msgs::msg::Joy::SharedPtr & msg, size_t idx,
                     const rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr & pub)
   {
@@ -59,14 +68,17 @@ private:
 
   void joy_callback(const sensor_msgs::msg::Joy::SharedPtr msg)
   {
-    publish_axis(msg, 0, pub_left_stick_y_);
-    publish_axis(msg, 1, pub_left_stick_x_);
+    publish_axis(msg, 0, pub_host_speed_);
+    publish_axis(msg, 1, pub_host_dir_);
     publish_axis(msg, 2, pub_right_stick_y_);
     publish_axis(msg, 3, pub_right_stick_x_);
     publish_axis(msg, 4, pub_left_trigger_);
     publish_axis(msg, 5, pub_right_trigger_);
 
-    // Публикация кнопок
+    if (msg->buttons[0] == 1 && !gearchanged){
+      if (gear < 3) gear++;
+      gearchanged = 1;
+    }
     publish_button(msg, 0, pub_btn_a_);
     publish_button(msg, 1, pub_btn_b_);
     publish_button(msg, 2, pub_btn_x_);
@@ -83,8 +95,8 @@ private:
   rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr sub_joy_;
 
   // Axes
-  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_left_stick_x_;
-  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_left_stick_y_;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_host_dir_;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_host_speed_;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_left_trigger_;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_right_stick_x_;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr pub_right_stick_y_;
